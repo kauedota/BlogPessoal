@@ -1,19 +1,19 @@
-2. ```bash
-   # 📖 Blog Pessoal - Banco de Dados
-   
-   Projeto feito com **Spring Boot** e **MySQL** para gerenciar postagens de um blog.
-   
-   ---
-   
-   ## ⚙️ Configuração
-   
-   Arquivo `application.properties`:
-   
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost/db_blogpessoal?createDatabaseIfNotExist=true&serverTimezone=America/Sao_Paulo&useSSL=false
-   spring.datasource.username=root
-   spring.datasource.password=root
-   spring.jpa.hibernate.ddl-auto=updatexxxxxxxxxx  http://localhost:8080/hellobash
+# 📖 Blog Pessoal - Banco de Dados
+
+Projeto feito com **Spring Boot** e **MySQL** para gerenciar postagens de um blog.
+
+---
+
+## ⚙️ Configuração
+
+Arquivo `application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost/db_blogpessoal?createDatabaseIfNotExist=true&serverTimezone=America/Sao_Paulo&useSSL=false
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+```
 
 
 
