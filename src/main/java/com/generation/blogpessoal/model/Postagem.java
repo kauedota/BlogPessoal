@@ -5,7 +5,10 @@ import java.time.LocalDateTime; // Importa a classe para trabalhar com data e ho
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +38,10 @@ public class Postagem {
     
     @UpdateTimestamp // Atualiza automaticamente a data e hora sempre que o registro for atualizado
     private LocalDateTime data; // Coluna "data" da tabela (armazena data e hora)
+    
+    @ManyToOne() // Define o relacionamento muitos-para-um com a entidade Tema
+    @JsonIgnoreProperties("postagem") // Evita recursão infinita na serialização JSON
+    private Tema tema; // Coluna "tema_id" da tabela (chave estrangeira para a tabela de temas)
 
     // Métodos Getters e Setters (acessam e modificam os atributos privados)
 
@@ -69,5 +76,15 @@ public class Postagem {
     public void setData(LocalDateTime data) {
         this.data = data;
     }
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+    
+    
 
 }

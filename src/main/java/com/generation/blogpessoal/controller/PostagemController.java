@@ -66,6 +66,7 @@ public class PostagemController {
     @PostMapping // Quando alguém chama POST /postagens
     public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
 		// Salva a postagem no banco e devolve
+    	postagem.setId(null); // Garante que o id seja nulo para que o banco gere um novo id
 		return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
 		// INSERT INTO tb_postagens (titulo, texto) VALUES ({titulo}, {texto});  (SQL) <- Isso é o que o método save() faz, ele insere um novo registro na tabela tb_postagens com os valores informados
     }
@@ -73,11 +74,9 @@ public class PostagemController {
     @PutMapping // Quando alguém chama PUT /postagens
     public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem) {
     			// Atualiza a postagem no banco e devolve
-    	if(postagemRepository.existsById(postagem.getId())) // Verifica se a postagem existe no banco
-    	 return ResponseEntity.ok(postagemRepository.save(postagem));
-    	// UPDATE tb_postagens SET titulo = {titulo}, texto = {texto} WHERE id = {id};  (SQL) <- Isso é o que o método save() faz, ele atualiza o registro da tabela tb_postagens com os valores informados
-    	
-    	return ResponseEntity.notFound().build(); // Se não encontrar, devolve 404 Not Found
+   		return postagemRepository.findById(postagem.getId())
+   			.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem))) // Se encontrar, atualiza e devolve 201 Created com a postagem
+   			.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Se não encontrar, devolve 404 Not Found
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT) // Retorna 204 No Content se a postagem for deletada com sucesso	
@@ -89,4 +88,5 @@ public class PostagemController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND); // Lança exceção para devolver 404 Not Found
 		postagemRepository.deleteById(id); // DELETE FROM tb_postagens WHERE id = {id};  (SQL) <- Isso é o que o método deleteById() faz, ele deleta o registro da tabela tb_postagens com o id informado
     }
+    
 }
