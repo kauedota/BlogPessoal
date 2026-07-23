@@ -42,6 +42,10 @@ public class Postagem {
     @ManyToOne() // Define o relacionamento muitos-para-um com a entidade Tema
     @JsonIgnoreProperties("postagem") // Evita recursão infinita na serialização JSON
     private Tema tema; // Coluna "tema_id" da tabela (chave estrangeira para a tabela de temas)
+    
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
     // Métodos Getters e Setters (acessam e modificam os atributos privados)
 
@@ -83,6 +87,14 @@ public class Postagem {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
     
     
