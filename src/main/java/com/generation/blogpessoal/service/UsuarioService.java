@@ -103,4 +103,13 @@ public class UsuarioService {
 	private String gerarToken(String usuario) {
 		return "Bearer " + jwtService.generateToken(usuario);
 	}
+
+	public boolean deletarUsuario(Long id) {
+	    // Verifica se o usuário existe antes de tentar deletar
+	    if (!usuarioRepository.findById(id).isPresent()) {
+	        return false;
+	    }
+	    usuarioRepository.deleteById(id);
+	    return true;
+	}
 }
