@@ -152,7 +152,31 @@ public class UsuarioControllerTest {
 		}
 		
 		@Test
-		@DisplayName("05 - Deve deletar um usuário com sucesso")
+		@DisplayName("05 - Busca por ID - Deve retornar um usuário")
+		void deveRetornarUsuarioPorId() {
+			// Given
+			Usuario usuario = TestBuilder.criarUsuario(null, "Lucas", "lucas@email.com.br", "lucas1234");
+			
+			//When
+			String token = JwtHelper.obterToken(testRestTemplate, USUARIO, SENHA);
+			
+			// Cabeçalho da Requisição
+			HttpEntity<Void> cabecalhoRequisicao = JwtHelper.criarRequisicaoComToken(token);
+			
+			// Enviar a requisição GET para o endpoint de busca por ID e obter a resposta
+			Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(usuario);
+			
+			ResponseEntity<Usuario> resposta = testRestTemplate.exchange(BASE_URL + "/" + usuarioCadastrado.get().getId(), HttpMethod.GET, cabecalhoRequisicao, Usuario.class);
+			
+			// Then
+			assertEquals(HttpStatus.OK, resposta.getStatusCode());
+			assertNotNull(resposta.getBody());	
+		
+		
+		
+	}
+		@Test
+		@DisplayName("06 - Deve deletar um usuário com sucesso")
 		void deveDeletarUsuario() {
 			// Given
 			Usuario usuario = TestBuilder.criarUsuario(null, "Carla", "carla@email.com.br", "carla1234");
