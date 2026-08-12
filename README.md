@@ -1,46 +1,57 @@
-# 📖 Blog Pessoal - Banco de Dados
+# 📝 Projeto Blog Pessoal - API REST
 
-Projeto feito com **Spring Boot** e **MySQL** para gerenciar postagens de um blog.
+![Banner Projeto Blog Pessoal](image_e87f5e.jpg)
 
----
+## 💻 Sobre o Projeto
+Esta é uma API RESTful desenvolvida para gerenciar um Blog Pessoal. O sistema permite o cadastro de usuários, criação de temas e publicação de postagens, garantindo a segurança das informações através de autenticação JWT e Spring Security.
 
-## ⚙️ Configuração
+## ⚙️ Principais Funcionalidades
+- **Usuários:** Cadastro, consulta, atualização e autenticação de usuários.
+- **Temas:** Criação e gerenciamento de temas (categorias) para estruturar o blog.
+- **Postagens:** Criação, edição, listagem e exclusão de publicações.
+- **Relacionamentos:** Associação entre usuários (quem cria), postagens (o conteúdo) e temas (a classificação).
+- **Segurança:** Autenticação utilizando JWT (JSON Web Token) e Spring Security para proteger as requisições.
 
-Arquivo `application.properties`:
+## 🛠️ Tecnologias Utilizadas
+- **Linguagem:** Java
+- **Framework:** Spring Boot
+- **Segurança:** Spring Security e JWT
+- **Persistência de Dados:** JPA + Hibernate
+- **Banco de Dados:** MySQL
+- **Testes:** JUnit
+- **Documentação da API:** SpringDoc / Swagger
+- **Servidor Web:** Tomcat
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost/db_blogpessoal?createDatabaseIfNotExist=true&serverTimezone=America/Sao_Paulo&useSSL=false
-spring.datasource.username=root
-spring.datasource.password=root
-spring.jpa.hibernate.ddl-auto=update
-```
+## 📊 Diagrama de Classes
+A estrutura de dados e relacionamentos do projeto foi desenhada da seguinte forma:
 
+![Diagrama de Classes](image_e87f3c.png)
 
+## 📚 Documentação da API
+A documentação completa dos endpoints da API foi gerada de forma automatizada com o Swagger. Através dela, é possível explorar e testar todas as rotas de Usuários, Temas e Postagens.
 
-## 🗂️ Estrutura da Tabela
+![Swagger UI](image_e87f42.png)
 
-Tabela criada: `tb_postagens`
+**Link do Deploy:** [https://blogpessoal-7t26.onrender.com](https://blogpessoal-7t26.onrender.com)
 
-CREATE TABLE tb_postagens (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  titulo VARCHAR(100) NOT NULL,
-  texto VARCHAR(255),
-  data DATETIME
-);
+## 🚀 Como Executar o Projeto
 
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/kauedota/BlogPessoal
+   ```
 
+2. **Configure o Banco de Dados:**
+   Abra o arquivo `src/main/resources/application.properties` e atualize as credenciais de acesso ao seu banco de dados MySQL local.
 
-## 🔎 Endpoints
+3. **Inicie a aplicação:**
+   Abra o projeto na sua IDE favorita (IntelliJ, Eclipse, VS Code) e rode a classe principal, ou utilize o Maven pelo terminal:
+   ```bash
+   mvn spring-boot:run
+   ```
 
-- **GET /postagens** → retorna todas as postagens *(equivalente ao* `SELECT * FROM tb_postagens;`*)*
-
-
-
-## 🚀 Como rodar
-
-1. Instale o **MySQL** e crie o schema `db_blogpessoal`.
-2. Rode o projeto com `mvn spring-boot:run` ou direto pelo IDE.
-3. Acesse os endpoints via navegador ou Postman.
-
----
-
+4. **Acesse a Documentação:**
+   Com a aplicação em execução, acesse o link abaixo no seu navegador para visualizar e testar os endpoints através da interface do Swagger:
+   ```text
+   http://localhost:8080/swagger-ui/index.html
+   ```
